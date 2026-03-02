@@ -1,14 +1,13 @@
 "use client";
 
 import { Ticket } from "@/lib/generated/prisma/client";
-import { toast } from "sonner";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Form } from "@/components/form/form";
 import { Textarea } from "@/components/ui/textarea";
 import { upsertTicket } from "../queries/actions/upsert-ticket";
 import { SubmitButton } from "@/components/form/submit-button";
 import { useActionState } from "react";
-import { useActionFeedback } from "@/components/form/hooks/use-action-feedback";
 import { FieldError } from "@/components/form/field-error";
 import { EMPTY_ACTION_STATE } from "@/components/form/utils/to-action-state";
 
@@ -22,21 +21,8 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
     EMPTY_ACTION_STATE,
   );
 
-  useActionFeedback(actionState, {
-    onSuccess: ({ actionState }) => {
-      if (actionState.message) {
-        toast.success(actionState.message);
-      }
-    },
-    onError: ({ actionState }) => {
-      if (actionState.message) {
-        toast.error(actionState.message);
-      }
-    },
-  });
-
   return (
-    <form action={action} className="flex flex-col gap-y-2 w-full">
+    <Form action={action} actionState={actionState}>
       <Label htmlFor="title">Title</Label>
       <Input
         id="title"
@@ -60,7 +46,7 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
         <FieldError actionState={actionState} name="content" />
       </span>
       <SubmitButton label={ticket ? "Update Ticket" : "Create Ticket"} />
-    </form>
+    </Form>
   );
 };
 
