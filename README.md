@@ -1,8 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CodePark Ticket Management System
+
+This is a modern ticket management application built with Next.js, designed to help teams track and manage support tickets efficiently. The application provides a clean, intuitive interface for creating, updating, and organizing tickets with different statuses.
+
+## Features
+
+- **Ticket Creation and Management**: Create new tickets with titles and detailed content
+- **Ticket Status Tracking**: Support for multiple ticket statuses (Open, In Progress, Closed)
+- **Real-time Updates**: Server actions for seamless CRUD operations
+- **Responsive UI**: Built with modern React components and Tailwind CSS
+- **Database Integration**: Uses Prisma ORM with PostgreSQL for robust data management
+- **Testing**: Comprehensive test suite with Vitest
+- **Type Safety**: Full TypeScript support throughout the application
+
+## Tech Stack
+
+- **Framework**: Next.js 14+ with App Router
+- **Database**: Prisma ORM with PostgreSQL
+- **Styling**: Tailwind CSS with custom components
+- **UI Components**: Custom component library (inspired by shadcn/ui)
+- **Testing**: Vitest with React Testing Library
+- **Language**: TypeScript
+- **Linting**: ESLint with custom configuration
+
+## Project Structure
+
+```
+app/
+├── features/ticket/          # Ticket-related pages and components
+├── tickets/                  # Ticket listing and detail pages
+└── layout.tsx                # Root layout
+
+components/
+├── ui/                       # Reusable UI components
+├── form/                     # Form-related components
+└── theme/                    # Theme provider and switcher
+
+lib/
+├── prisma.ts                 # Prisma client setup
+└── generated/                # Auto-generated Prisma types
+
+prisma/
+├── schema.prisma             # Database schema
+└── seed.ts                   # Database seeding script
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- PostgreSQL database
+- npm, yarn, pnpm, or bun
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone <repository-url>
+cd codepark
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+3. Set up the database:
+
+```bash
+# Configure your database connection in prisma/schema.prisma
+npx prisma migrate dev
+npx prisma db seed
+```
+
+4. Run the development server:
 
 ```bash
 npm run dev
@@ -10,27 +87,48 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `npm run dev` - Start the development server
+- `npm run build` - Build the application for production
+- `npm run start` - Start the production server
+- `npm run test` - Run the test suite
+- `npm run lint` - Run ESLint for code quality checks
 
-## Learn More
+## Database Management
 
-To learn more about Next.js, take a look at the following resources:
+This project uses Prisma for database management:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Migrations**: `npx prisma migrate dev` - Create and apply migrations
+- **Studio**: `npx prisma studio` - Open Prisma Studio for database visualization
+- **Reset**: `npx prisma migrate reset` - Reset database and migration history
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Testing
 
-## Deploy on Vercel
+Run tests with:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run test
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Tests are written with Vitest and React Testing Library, focusing on component behavior and user interactions.
+
+## Deployment
+
+The application can be deployed to Vercel, Netlify, or any platform supporting Next.js applications. Make sure to configure your database connection string in the deployment environment.
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests for new functionality
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License.
