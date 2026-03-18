@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { deleteTicket } from "../queries/actions/delete-ticket";
+import { fromCent } from "@/utils/currency";
 
 type TiketItemProps = {
   ticket: Ticket;
@@ -71,7 +72,12 @@ const TicketItem = ({ ticket, isDetail }: TiketItemProps) => {
             {ticket.content}
           </span>
         </CardContent>
-        <CardFooter></CardFooter>
+        <CardFooter className="flex justify-between">
+          <p className="text-sm text-muted-foreground">{ticket.deadline}</p>
+          <p className="text-sm text-muted-foreground">
+            {fromCent(ticket.bounty)}
+          </p>
+        </CardFooter>
       </Card>
       <div className="flex flex-col gap-y-2">
         {isDetail ? (

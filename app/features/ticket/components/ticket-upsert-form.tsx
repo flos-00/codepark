@@ -10,6 +10,7 @@ import { SubmitButton } from "@/components/form/submit-button";
 import { useActionState } from "react";
 import { FieldError } from "@/components/form/field-error";
 import { EMPTY_ACTION_STATE } from "@/components/form/utils/to-action-state";
+import { fromCent } from "@/utils/currency";
 
 type TicketUpsertFormProps = {
   ticket?: Ticket;
@@ -42,9 +43,36 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
           (actionState.payload?.get("content") as string) ?? ticket?.content
         }
       />
-      <span className="text-xs text-red-500">
-        <FieldError actionState={actionState} name="content" />
-      </span>
+      <FieldError actionState={actionState} name="content" />
+      <div className="flex gap-x-2 mb-1">
+        <div className="w-1/2">
+          <Label htmlFor="deadline">Deadline</Label>
+          <Input
+            id="deadline"
+            name="deadline"
+            type="date"
+            defaultValue={
+              (actionState.payload?.get("deadline") as string) ??
+              ticket?.deadline
+            }
+          />
+          <FieldError actionState={actionState} name="deadline" />
+        </div>
+        <div className="w-1/2">
+          <Label htmlFor="bounty">Bounty (€)</Label>
+          <Input
+            id="bounty"
+            name="bounty"
+            step=".01"
+            type="number"
+            defaultValue={
+              (actionState.payload?.get("bounty") as string) ??
+              (ticket?.bounty ? fromCent(ticket.bounty) : "")
+            }
+          />
+          <FieldError actionState={actionState} name="bounty" />
+        </div>
+      </div>
       <SubmitButton label={ticket ? "Update Ticket" : "Create Ticket"} />
     </Form>
   );
