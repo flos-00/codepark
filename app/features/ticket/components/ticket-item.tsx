@@ -75,7 +75,7 @@ const TicketItem = ({ ticket, isDetail }: TiketItemProps) => {
         <CardFooter className="flex justify-between">
           <p className="text-sm text-muted-foreground">{ticket.deadline}</p>
           <p className="text-sm text-muted-foreground">
-            {fromCent(ticket.bounty)}
+            € {fromCent(ticket.bounty)}
           </p>
         </CardFooter>
       </Card>

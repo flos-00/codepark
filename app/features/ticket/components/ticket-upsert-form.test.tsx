@@ -23,6 +23,8 @@ describe("TicketUpsertForm", () => {
 
     expect(screen.getByLabelText("Title")).toBeInTheDocument();
     expect(screen.getByLabelText("Content")).toBeInTheDocument();
+    expect(screen.getByLabelText("Deadline")).toBeInTheDocument();
+    expect(screen.getByLabelText("Bounty (€)")).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: /create ticket/i }),
     ).toBeInTheDocument();
@@ -34,6 +36,8 @@ describe("TicketUpsertForm", () => {
       id: "1",
       title: "Test Ticket",
       content: "Test Content",
+      deadline: "2026-03-25",
+      bounty: 50000,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -44,9 +48,13 @@ describe("TicketUpsertForm", () => {
     const contentInput = screen.getByLabelText(
       "Content",
     ) as HTMLTextAreaElement;
+    const deadlineInput = screen.getByLabelText("Deadline") as HTMLInputElement;
+    const bountyInput = screen.getByLabelText("Bounty (€)") as HTMLInputElement;
 
     expect(titleInput.value).toBe("Test Ticket");
     expect(contentInput.value).toBe("Test Content");
+    expect(deadlineInput.value).toBe("2026-03-25");
+    expect(bountyInput.value).toBe("500");
     expect(
       screen.getByRole("button", { name: /update ticket/i }),
     ).toBeInTheDocument();
@@ -59,9 +67,13 @@ describe("TicketUpsertForm", () => {
     const contentInput = screen.getByLabelText(
       "Content",
     ) as HTMLTextAreaElement;
+    const deadlineInput = screen.getByLabelText("Deadline") as HTMLInputElement;
+    const bountyInput = screen.getByLabelText("Bounty (€)") as HTMLInputElement;
 
     expect(titleInput.value).toBe("");
     expect(contentInput.value).toBe("");
+    expect(deadlineInput.value).toBe("");
+    expect(bountyInput.value).toBe("");
   });
 
   it("displays correct submit button label for create mode", () => {
@@ -78,6 +90,8 @@ describe("TicketUpsertForm", () => {
       id: "1",
       title: "Existing Ticket",
       content: "Existing Content",
+      deadline: "2026-04-01",
+      bounty: 100000,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -114,6 +128,25 @@ describe("TicketUpsertForm", () => {
     ) as HTMLTextAreaElement;
     expect(contentInput).toHaveAttribute("name", "content");
     expect(contentInput).toHaveAttribute("id", "content");
+  });
+
+  it("renders deadline input with correct attributes", () => {
+    render(<TicketUpsertForm />);
+
+    const deadlineInput = screen.getByLabelText("Deadline") as HTMLInputElement;
+    expect(deadlineInput).toHaveAttribute("type", "date");
+    expect(deadlineInput).toHaveAttribute("name", "deadline");
+    expect(deadlineInput).toHaveAttribute("id", "deadline");
+  });
+
+  it("renders bounty input with correct attributes", () => {
+    render(<TicketUpsertForm />);
+
+    const bountyInput = screen.getByLabelText("Bounty (€)") as HTMLInputElement;
+    expect(bountyInput).toHaveAttribute("type", "number");
+    expect(bountyInput).toHaveAttribute("name", "bounty");
+    expect(bountyInput).toHaveAttribute("id", "bounty");
+    expect(bountyInput).toHaveAttribute("step", ".01");
   });
 
   it("uses form data from actionState.payload when available", () => {
