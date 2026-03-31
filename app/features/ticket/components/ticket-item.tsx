@@ -14,10 +14,12 @@ import {
   LucideSquareArrowOutUpRight,
   LucideTrash,
   LucidePencil,
+  LucideMoreVertical,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { deleteTicket } from "../queries/actions/delete-ticket";
 import { fromCent } from "@/utils/currency";
+import { TicketMoreMenu } from "./ticket-more-menu";
 
 type TiketItemProps = {
   ticket: Ticket;
@@ -47,6 +49,17 @@ const TicketItem = ({ ticket, isDetail }: TiketItemProps) => {
         <LucidePencil className="h-4 w-4" />
       </Link>
     </Button>
+  );
+
+  const moreMenu = (
+    <TicketMoreMenu
+      ticket={ticket}
+      trigger={
+        <Button variant={"outline"} size={"icon"}>
+          <LucideMoreVertical className="h-4 w-4" />
+        </Button>
+      }
+    />
   );
 
   return (
@@ -84,6 +97,7 @@ const TicketItem = ({ ticket, isDetail }: TiketItemProps) => {
           <>
             {deleteButton}
             {editButton}
+            {ticket.id && <TicketMoreMenu ticket={ticket} trigger={moreMenu} />}
           </>
         ) : (
           detailButton
