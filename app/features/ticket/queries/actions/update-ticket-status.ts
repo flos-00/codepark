@@ -10,7 +10,6 @@ import { revalidatePath } from "next/cache";
 import { ticketsPath } from "@/paths";
 
 const updateTicketStatus = async (id: string, status: TicketStatus) => {
-  console.log(`Ticket ${id} status updated to ${status}`);
   try {
     await prisma.ticket.update({
       where: { id },
