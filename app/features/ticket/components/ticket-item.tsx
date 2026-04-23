@@ -8,6 +8,7 @@ import {
   CardTitle,
   CardContent,
 } from "@/components/ui/card";
+import { ConfirmDialog } from "@/components/confirm-dialog";
 import { Ticket } from "@/lib/generated/prisma/client";
 import { TICKET_ICONS } from "@/app/features/ticket/constants";
 import {
@@ -36,11 +37,14 @@ const TicketItem = ({ ticket, isDetail }: TiketItemProps) => {
   );
 
   const deleteButton = (
-    <form action={deleteTicket.bind(null, ticket.id) as unknown as string}>
-      <Button variant={"outline"} size={"icon"}>
-        <LucideTrash></LucideTrash>
-      </Button>
-    </form>
+    <ConfirmDialog
+      action={deleteTicket.bind(null, ticket.id)}
+      trigger={
+        <Button variant={"outline"} size={"icon"}>
+          <LucideTrash className="h-4 w-4" />
+        </Button>
+      }
+    />
   );
 
   const editButton = (
