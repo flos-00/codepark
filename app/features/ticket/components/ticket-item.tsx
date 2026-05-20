@@ -8,17 +8,14 @@ import {
   CardTitle,
   CardContent,
 } from "@/components/ui/card";
-import { ConfirmDialog } from "@/components/confirm-dialog";
 import { Ticket } from "@/lib/generated/prisma/client";
 import { TICKET_ICONS } from "@/app/features/ticket/constants";
 import {
   LucideSquareArrowOutUpRight,
-  LucideTrash,
   LucidePencil,
   LucideMoreVertical,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { deleteTicket } from "../queries/actions/delete-ticket";
 import { fromCent } from "@/utils/currency";
 import { TicketMoreMenu } from "./ticket-more-menu";
 
@@ -34,17 +31,6 @@ const TicketItem = ({ ticket, isDetail }: TiketItemProps) => {
         <LucideSquareArrowOutUpRight className="h-4 w-4" />
       </Link>
     </Button>
-  );
-
-  const deleteButton = (
-    <ConfirmDialog
-      action={deleteTicket.bind(null, ticket.id)}
-      trigger={
-        <Button variant={"outline"} size={"icon"}>
-          <LucideTrash className="h-4 w-4" />
-        </Button>
-      }
-    />
   );
 
   const editButton = (
@@ -99,7 +85,6 @@ const TicketItem = ({ ticket, isDetail }: TiketItemProps) => {
       <div className="flex flex-col gap-y-2">
         {isDetail ? (
           <>
-            {deleteButton}
             {editButton}
             {moreMenu}
           </>
